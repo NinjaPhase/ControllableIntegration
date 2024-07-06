@@ -34,14 +34,15 @@ jobs:
 
     - name: Get Tag Name
       id: get_tag_name
-      run: REL_VERSION="${{ github.ref }}" && echo "REL_VERSION=${REL_VERSION:1}" >> $GITHUB_ENV
+      run: REL_VERSION="${{ github.ref }}" && echo "REL_VERSION=${REL_VERSION:11}" >> $GITHUB_ENV
+
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: $REL_VERSION
+        tag_name: ${{ github.ref }}
         release_name: Release $REL_VERSION
         body: |
           TODO: Add automated
