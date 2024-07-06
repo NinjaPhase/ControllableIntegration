@@ -1,0 +1,38 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="GNU GPLv3"
+
+[[mods]]
+  modId="controllableintegration"
+  version="0.1.0"
+  displayName="Controllable Integrations"
+  authors="NinjaPhase"
+  description='''Controller Integrations with other mods.'''
+
+[[dependencies.controllableintegration]]
+    modId="forge"
+    mandatory=true
+    versionRange="[47,)"
+    ordering="NONE"
+    side="CLIENT"
+
+[[dependencies.controllableintegration]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1,1.21)"
+    ordering="NONE"
+    side="CLIENT"
+
+[[dependencies.controllableintegration]]
+    modId="controllable"
+    mandatory=true
+    versionRange="[0.20.3,)"
+    ordering="NONE"
+    side="CLIENT"
+
+[[dependencies.controllableintegration]]
+    modId="simple-storage-network"
+    mandatory=false
+    versionRange="[1.10.0,)"
+    ordering="NONE"
+    side="CLIENT"
