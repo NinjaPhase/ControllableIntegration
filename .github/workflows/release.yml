@@ -38,7 +38,7 @@ jobs:
 
     - name: Get Minecraft Release Version
       id: get_mc_version
-      run: MC_VERSION=$(grep 'minecraft_version=' gradle.properties | cut -d'=' -f2) && echo "MC_VERSION=${MC_VERSION:18}" >> $GITHUB_ENV
+      run: MC_VERSION=$(grep 'minecraft_version=' gradle.properties) && echo "MC_VERSION=${MC_VERSION:18}" >> $GITHUB_ENV
 
     - name: Create Release
       id: create_release
