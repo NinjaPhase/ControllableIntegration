@@ -5,18 +5,16 @@
 # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
 
-name: Release to Releases and CurseForge
+name: Release to GitHub Releases and CurseForge
 
 on:
   push:
-    branches: [ "release" ]
-  pull_request:
-    branches: [ "release" ]
+    tags:
+      - 'v*'
   workflow_dispatch:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -35,6 +33,33 @@ jobs:
     - name: Build with Gradle Wrapper
       run: chmod +x ./gradlew && ./gradlew build
 
+    - name: Get Tag Name
+      id: get_tag_name
+      run: REL_VERSION="${{ github.ref }}" && echo "REL_VERSION=${REL_VERSION:1}" >> $GITHUB_ENV
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: $REL_VERSION
+        release_name: Release $REL_VERSION
+        body: |
+          TODO: Add automated
+        draft: true
+        prerelease: true
+        
+    - name: Upload Release File
+      id: upload_release_asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./build/reobfJar/output.jar
+        asset_name: controllableintegration-1.20.1-$REL_VERSION
+        asset_content_type: application/java-archive
+
   dependency-submission:
 
     runs-on: ubuntu-latest
@@ -49,7 +74,5 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    # Generates and submits a dependency graph, enabling Dependabot Alerts for all project dependencies.
-    # See: https://github.com/gradle/actions/blob/main/dependency-submission/README.md
     - name: Generate and submit dependency graph
       uses: gradle/actions/dependency-submission@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
