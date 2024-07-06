@@ -1,0 +1,8 @@
+0.1.1:
+  * Cleaning up code ready for more mods as required
+  * No longer requires Refined Storage due to client tick
+  * Fixed TOML file for required mods (Removed SSN, added Refined Storage)
+
+0.1.0:
+  * Initial release
+  * Refined Storage integration

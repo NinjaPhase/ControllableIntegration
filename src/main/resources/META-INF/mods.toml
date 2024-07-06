@@ -4,7 +4,7 @@ license="GNU GPLv3"
 
 [[mods]]
   modId="controllableintegration"
-  version="0.1.0"
+  version="0.1.1"
   displayName="Controllable Integrations"
   authors="NinjaPhase"
   description='''Controller Integrations with other mods.'''
@@ -31,8 +31,8 @@ license="GNU GPLv3"
     side="CLIENT"
 
 [[dependencies.controllableintegration]]
-    modId="simple-storage-network"
+    modId="refinedstorage"
     mandatory=false
-    versionRange="[1.10.0,)"
+    versionRange="[1.12.4,)"
     ordering="NONE"
     side="CLIENT"
