@@ -1,4 +1,4 @@
-package com.ironninja.cint.mods;
+package com.ironninja.cint.mods.refinedstorage;
 
 import com.ironninja.cint.util.CursorUtils;
 import com.mrcrayfish.controllable.client.Thumbstick;
@@ -43,7 +43,7 @@ public class ControllableRefinedStorage {
                 points.add(new BasicNavigationPoint(x + 74 + 3.5, y + sy + 3.5));
             }
             for (int i = 0; i < 9 * screen.getVisibleRows(); i++) {
-                points.add(new BasicNavigationPoint(x + 9, y + 9));
+                points.add(new GridNavigationPoint(x + 9, y + 9));
                 x += 18;
                 if ((i + 1) % 9 == 0) {
                     x = screen.getGuiLeft() + 8;
@@ -54,7 +54,7 @@ public class ControllableRefinedStorage {
     }
 
     public static void handleGridScroll(Minecraft mc, Controller controller) {
-        if (ControllableRefinedStorage.isEnabled()) {
+        if (!ControllableRefinedStorage.isEnabled()) {
             return;
         }
 

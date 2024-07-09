@@ -1,6 +1,7 @@
 package com.ironninja.cint;
 
-import com.ironninja.cint.mods.ControllableRefinedStorage;
+import com.ironninja.cint.mods.cobblemon.ControllableCobblemon;
+import com.ironninja.cint.mods.refinedstorage.ControllableRefinedStorage;
 import com.mrcrayfish.controllable.Controllable;
 import com.mrcrayfish.controllable.client.input.Controller;
 import com.mrcrayfish.controllable.event.ControllerEvents;
@@ -8,6 +9,7 @@ import com.mrcrayfish.framework.api.event.TickEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.IExtensionPoint;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -23,8 +25,13 @@ public class ControllableIntegrationMod {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::onClientSetup);
 
-        if (ControllableRefinedStorage.isEnabled()) {
+        if (ModList.get().isLoaded("refinedstorage")) {
             ControllerEvents.GATHER_NAVIGATION_POINTS.register(ControllableRefinedStorage::handleNavigationPoints);
+        }
+        if (ModList.get().isLoaded("cobblemon")) {
+            ControllerEvents.BUTTON.register(ControllableCobblemon::handleButton);
+            ControllerEvents.GATHER_NAVIGATION_POINTS.register(ControllableCobblemon::handleNavigationPoints);
+            ControllableCobblemon.registerButtonBindings();
         }
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
@@ -47,7 +54,9 @@ public class ControllableIntegrationMod {
             return;
         }
 
-        ControllableRefinedStorage.handleGridScroll(mc, controller);
+        if (ControllableRefinedStorage.isEnabled()) {
+            ControllableRefinedStorage.handleGridScroll(mc, controller);
+        }
     }
 
 }
