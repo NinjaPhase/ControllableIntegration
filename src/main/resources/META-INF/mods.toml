@@ -4,7 +4,7 @@ license="GNU GPLv3"
 
 [[mods]]
   modId="controllableintegration"
-  version="0.1.1"
+  version="0.1.2"
   displayName="Controllable Integrations"
   authors="NinjaPhase"
   description='''Controller Integrations with other mods.'''
